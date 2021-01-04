@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1600007770 source:c:\users\asus\desktop\c\struct_dosyaislemleri\main.c
+	<stdio.h>
+	<stdlib.h>
+
