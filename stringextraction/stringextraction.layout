@@ -1,0 +1,70 @@
+--ALU
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_arith.all;
+Entity eAMB is
+Generic(n:natural:=4);
+Port(A:in std_logic_vector(n-1 downto 0);
+     B:in std_logic_vector(n-1 downto 0);
+     kmt:in std_logic_vector(n-1 downto 0);
+     F:out std_logic_vector(n-1 downto 0);
+)
+End eAMB;
+Architecture Behv of eAMB is
+Begin
+with kmt SELECT 
+	f<=A+B when "00",
+	   A-B when "01",
+	   A and B when "10", 
+	   "ZZZZ" when others;
+End Behv;
+--RAM
+Entity eRAM is 
+generic(en: integer:=4;
+	boy:integer:=8;
+	adr:integer:=3);
+port(s: in std_logic;
+     o_y: in std_logic;
+     Adr:in std_logic_vector(adr-1 downto 0);
+     A: in std_logic_vector(en-1 downto 0);
+     F: out std_logic_vector(en-1 downto 0);
+end eRAM;
+Architecture behv of eRAM is
+TYPE RAMdizi is array(0 to boy-1) of
+ std_logic_vector(en-1 downto 0);
+signal Rambellek: RAMdizi;
+Begin
+bOku:process(s,o_y)
+ begin 
+  if(s'event and s='1') then
+   if o_y='0' then
+	F<= Rambellek(conv_integer(adr));
+     end if;
+    end if;
+end process;
+
+bYaz:process(s,o_y)
+ begin
+  if(s'event and s='1')then
+   if o_y='1'then
+    Rambellek(conv_integer(adr))<=A;
+   end if;
+ end if;
+end process;
+end behv;
+ --REGISTER
+Entity eYazmac is
+Generic(n:natural:=8);
+Port(D:in std_logic_vector(n-1 downto 0);
+     S:in std_logic_vector(n-1 downto 0);
+     F:out std_logic_vector(n-1 downto 0);
+End eYazmac;
+Architecture Behv of eYazmac is
+Begin
+process
+Begin
+If s='1' and s'event then 
+	F<=D;
+End if;
+End process;

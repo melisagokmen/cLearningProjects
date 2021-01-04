@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1601128335 source:c:\users\asus\desktop\c\stringextraction\main.c
+	<stdio.h>
+	<stdlib.h>
+
